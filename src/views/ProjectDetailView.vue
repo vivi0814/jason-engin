@@ -23,7 +23,7 @@
         <div class="project-description">
           <h2>專案介紹</h2>
           <p>這是關於 <strong>{{ project.title }}</strong> 的詳細介紹。此項目位於 {{ project.location }}，是我們公司的重點工程之一。</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac odio tenus et.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
           
           <h3>工程亮點</h3>
           <ul>
