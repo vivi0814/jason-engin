@@ -1,0 +1,83 @@
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Variables */
+$primary-color: #003366;
+/* Navy Blue */
+$secondary-color: #c5a059;
+/* Gold/Bronze */
+$text-color: #333;
+$light-bg: #f8f9fa;
+$white: #ffffff;
+
+/* Breakpoints */
+$bp-sm: 640px;
+$bp-md: 960px;
+$bp-lg: 1280px;
+$bp-xl: 1920px;
+
+/* Container */
+.container {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: $bp-sm) {
+    max-width: 640px;
+  }
+
+  @media (min-width: $bp-md) {
+    max-width: 960px;
+  }
+
+  @media (min-width: $bp-lg) {
+    max-width: 1280px;
+  }
+
+  @media (min-width: $bp-xl) {
+    max-width: 1280px;
+  }
+}
+
+/* Utilities */
+.text-primary {
+  color: $primary-color;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+.bg-primary {
+  background-color: $primary-color;
+}
+
+.bg-white {
+  background-color: $white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
