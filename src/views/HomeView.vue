@@ -3,8 +3,8 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content container">
-        <h1>打造未來 <br><span class="highlight">追求卓越</span></h1>
-        <p>自1990年以來，領先業界的營造公司，致力於提供高品質的工程項目。</p>
+        <h1>家的築夢者 <br><span class="highlight">築夢的專家</span></h1>
+        <p>傑昇營造以20年歲月，累積對建築事業的追求與理想</p>
         <div class="hero-actions">
           <RouterLink to="/projects" class="btn btn-primary">瀏覽工程實績</RouterLink>
           <RouterLink to="/contact" class="btn btn-outline">聯絡我們</RouterLink>
@@ -47,6 +47,7 @@
             :title="project.title"
             :location="project.location"
             :status="project.status"
+            :image="project.image"
           />
         </div>
       </div>
@@ -55,22 +56,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import NewsCard from '../components/NewsCard.vue'
 import ProjectCard from '../components/ProjectCard.vue'
+import { allProjects } from '../data/projects'
 
 const newsItems = ref([
-  { id: 1, date: '2024年12月15日', title: '榮獲2024年度最佳營造公司殊榮', summary: '我們很榮幸因在工程品質與安全標準上的卓越表現，獲得此項殊榮。' },
-  { id: 2, date: '2024年11月20日', title: '全新環保辦公大樓動工', summary: '位於市中心的全新永續辦公大樓正式動土，該項目將致力於取得LEED白金級認證。' },
-  { id: 3, date: '2024年10月05日', title: '城市大橋工程順利完工', summary: '主要的城市基礎設施項目提前完工，大幅改善了城市的交通連結。' }
+  { id: 1, date: '2010年11月19日', title: '榮獲第十六屆中華建築金石獎', summary: '傑昇榮獲第十六屆中華建築金石獎，與總統召見留影' },
+  { id: 2, date: '2010年11月18日', title: '六本木新建工程榮獲金石獎', summary: '衣蝶六本木新建工程榮獲第十六屆中華建築金石獎優良施工品質（住宅中層組）' },
+  { id: 3, date: '2010年11月04日', title: '榮獲第九屆國家建築金質獎', summary: '傑昇榮獲第九屆國家建築金質獎，與總統召見留影' },
+  { id: 4, date: '2010年11月04日', title: '榮獲國家優良營造商認證標章', summary: '榮獲國家優良營造商認證標章-呂副總統頒獎' },
+  { id: 5, date: '2010年11月04日', title: '榮獲國家優良營造商認證標章', summary: '榮獲國家優良營造商認證標章-鍾榮吉副院長頒獎' }
 ])
 
-const featuredProjects = ref([
-  { id: 1, title: '天際線大樓', location: '市中心', status: '在建工程' },
-  { id: 2, title: '河畔公寓', location: '西區', status: '完工實績' },
-  { id: 3, title: '科技創新園區', location: '科技園區', status: '完工實績' }
-])
+const featuredProjects = computed(() => {
+  // Return the first 3 projects as featured
+  return allProjects.slice(0, 3)
+})
 </script>
 
 <style lang="scss" scoped>

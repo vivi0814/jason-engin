@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="container header-content">
       <div class="logo">
-        <RouterLink to="/">CONSTRUCT CO.</RouterLink>
+        <RouterLink to="/"><img src="/images/logo.png" alt="logo"></RouterLink>
       </div>
       
       <button class="menu-toggle" @click="isMenuOpen = !isMenuOpen" :aria-expanded="isMenuOpen" aria-label="Toggle navigation">
@@ -62,12 +62,15 @@ onUnmounted(() => {
   position: relative;
 }
 
-.logo a {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: $primary-color;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.logo{
+  
+}
+
+.logo img {
+  height: 100%;
+  padding: 5px;
+  max-height: 70px;
+  vertical-align: middle;
 }
 
 .menu-toggle {

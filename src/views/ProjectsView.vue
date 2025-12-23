@@ -27,34 +27,63 @@
       <!-- Projects Grid -->
       <div class="grid-3">
         <ProjectCard 
-          v-for="project in filteredProjects"
+          v-for="project in paginatedProjects"
           :key="project.id"
           :id="project.id"
           :title="project.title"
           :location="project.location"
           :status="project.status"
+          :image="project.image"
         />
+      </div>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="pagination">
+        <button 
+          class="page-btn" 
+          :disabled="currentPage === 1"
+          @click="currentPage--"
+        >
+          &laquo; 上一頁
+        </button>
+        
+        <div class="page-numbers">
+          <button 
+            v-for="page in totalPages" 
+            :key="page"
+            class="page-number"
+            :class="{ active: currentPage === page }"
+            @click="currentPage = page"
+          >
+            {{ page }}
+          </button>
+        </div>
+
+        <button 
+          class="page-btn" 
+          :disabled="currentPage === totalPages"
+          @click="currentPage++"
+        >
+          下一頁 &raquo;
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import ProjectCard from '../components/ProjectCard.vue'
+import { allProjects } from '../data/projects'
 
 const activeTab = ref('completed')
+const currentPage = ref(1)
+const itemsPerPage = 9
 
-const allProjects = [
-  { id: 1, title: '天際線大樓', location: '市中心', status: '在建工程' },
-  { id: 2, title: '河畔公寓', location: '西區', status: '完工實績' },
-  { id: 3, title: '科技創新園區', location: '科技園區', status: '完工實績' },
-  { id: 4, title: '綠谷購物中心', location: '北郊', status: '在建工程' },
-  { id: 5, title: '市立醫院新翼', location: '醫療特區', status: '完工實績' },
-  { id: 6, title: '海港大橋', location: '灣區', status: '完工實績' },
-  { id: 7, title: '豪華度假村', location: '濱海區', status: '在建工程' },
-  { id: 8, title: '中央圖書館', location: '市中心', status: '完工實績' }
-]
+// Reset pagination when tab changes
+watch(activeTab, () => {
+  currentPage.value = 1
+})
 
 const filteredProjects = computed(() => {
   if (activeTab.value === 'completed') {
@@ -62,6 +91,16 @@ const filteredProjects = computed(() => {
   } else {
     return allProjects.filter(p => p.status === '在建工程')
   }
+})
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredProjects.value.length / itemsPerPage)
+})
+
+const paginatedProjects = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredProjects.value.slice(start, end)
 })
 </script>
 
@@ -125,6 +164,7 @@ const filteredProjects = computed(() => {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  margin-bottom: 3rem;
 
   @media (min-width: $bp-sm) {
     grid-template-columns: repeat(2, 1fr);
@@ -132,6 +172,51 @@ const filteredProjects = computed(() => {
 
   @media (min-width: $bp-md) {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  .page-numbers {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .page-btn, .page-number {
+    background: $white;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      border-color: $secondary-color;
+      color: $secondary-color;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+      color: $white;
+    }
+  }
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
 </style>

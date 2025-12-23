@@ -1,8 +1,8 @@
 <template>
   <RouterLink :to="`/projects/${id}`" class="project-card">
     <div class="project-image">
-      <!-- Placeholder for image -->
-      <div class="placeholder-img"></div>
+      <img v-if="image" :src="image" :alt="title">
+      <div v-else class="placeholder-img"></div>
     </div>
     <div class="project-info">
       <span class="project-status" :class="status === '完工實績' ? 'completed' : 'under-construction'">{{ status }}</span>
@@ -37,7 +37,7 @@ defineProps({
   &:hover {
     transform: translateY(-5px);
     
-    .placeholder-img {
+    .placeholder-img, img {
       transform: scale(1.05);
     }
   }
@@ -47,6 +47,13 @@ defineProps({
   height: 200px;
   overflow: hidden;
   background-color: #eee;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
 }
 
 .placeholder-img {

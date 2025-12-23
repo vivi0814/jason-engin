@@ -11,20 +11,20 @@
       <div class="row">
         <div class="col-info">
           <h2>保持聯繫</h2>
-          <p class="intro">無論您對專案有疑問、需要報價，還是只想打個招呼，我們的團隊隨時準備回答您的所有問題。</p>
+          <p class="intro">無論對專案有任何疑問，我們的團隊隨時準備回答您的所有問題。</p>
           
           <div class="contact-details">
             <div class="detail-item">
               <h3>地址</h3>
-              <p>台北市信義區松仁路100號</p>
+              <p>新北市板橋區館前西路6號7樓</p>
             </div>
             <div class="detail-item">
               <h3>電話</h3>
-              <p>(02) 2345-6789</p>
+              <p>(02)8952-3999</p>
             </div>
             <div class="detail-item">
               <h3>Email</h3>
-              <p>info@constructco.com</p>
+              <p>jason.apply@msa.hinet.net</p>
             </div>
             <div class="detail-item">
               <h3>營業時間</h3>

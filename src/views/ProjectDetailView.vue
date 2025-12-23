@@ -14,23 +14,19 @@
           </div>
         </div>
 
-        <div class="project-gallery">
-          <div class="main-image">
-            <div class="placeholder-img">專案主圖</div>
+        <div class="project-main-content">
+          <div class="project-description">
+            <h2>專案介紹</h2>
+            <p class="description-text" v-if="project.description">{{ project.description }}</p>
+            <p v-else>這是關於 <strong>{{ project.title }}</strong> 的詳細介紹。此項目位於 {{ project.location }}，是我們公司的重點工程之一。</p>
           </div>
-        </div>
 
-        <div class="project-description">
-          <h2>專案介紹</h2>
-          <p>這是關於 <strong>{{ project.title }}</strong> 的詳細介紹。此項目位於 {{ project.location }}，是我們公司的重點工程之一。</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
-          
-          <h3>工程亮點</h3>
-          <ul>
-            <li>採用最新環保建材</li>
-            <li>抗震係數達 0.4g</li>
-            <li>智慧建築管理系統</li>
-          </ul>
+          <div class="project-gallery">
+            <div class="main-image">
+              <img v-if="project.image" :src="project.image" :alt="project.title">
+              <div v-else class="placeholder-img">專案主圖</div>
+            </div>
+          </div>
         </div>
       </article>
 
@@ -44,21 +40,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { allProjects } from '../data/projects'
 
 const route = useRoute()
 const project = ref(null)
-
-// Mock data - same as ProjectsView
-const allProjects = [
-  { id: 1, title: '天際線大樓', location: '市中心', status: '在建工程' },
-  { id: 2, title: '河畔公寓', location: '西區', status: '完工實績' },
-  { id: 3, title: '科技創新園區', location: '科技園區', status: '完工實績' },
-  { id: 4, title: '綠谷購物中心', location: '北郊', status: '在建工程' },
-  { id: 5, title: '市立醫院新翼', location: '醫療特區', status: '完工實績' },
-  { id: 6, title: '海港大橋', location: '灣區', status: '完工實績' },
-  { id: 7, title: '豪華度假村', location: '濱海區', status: '在建工程' },
-  { id: 8, title: '中央圖書館', location: '市中心', status: '完工實績' }
-]
 
 onMounted(() => {
   const id = parseInt(route.params.id)
@@ -96,6 +81,7 @@ onMounted(() => {
 .project-header {
   padding: 2rem;
   border-bottom: 1px solid #eee;
+  background-color: #fafafa;
 
   .status {
     display: inline-block;
@@ -117,9 +103,13 @@ onMounted(() => {
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: $primary-color;
     margin-bottom: 0.5rem;
+    
+    @media (min-width: $bp-sm) {
+      font-size: 2.5rem;
+    }
   }
 
   .location {
@@ -128,14 +118,70 @@ onMounted(() => {
   }
 }
 
+.project-main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+
+  @media (min-width: $bp-md) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.project-description {
+  flex: 1;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: $secondary-color;
+    }
+  }
+
+  .description-text {
+    line-height: 1.8;
+    color: #444;
+    font-size: 1.1rem;
+    white-space: pre-line;
+  }
+}
+
 .project-gallery {
-  height: 400px;
-  background-color: #f0f0f0;
+  width: 100%;
+  
+  @media (min-width: $bp-md) {
+    width: 40%;
+    position: sticky;
+    top: 100px;
+  }
   
   .main-image {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .placeholder-img {
       width: 100%;
       height: 100%;
@@ -144,38 +190,8 @@ onMounted(() => {
       justify-content: center;
       background: linear-gradient(45deg, $primary-color, lighten($primary-color, 20%));
       color: rgba(255,255,255,0.5);
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 700;
-    }
-  }
-}
-
-.project-description {
-  padding: 2rem;
-
-  h2 {
-    color: $primary-color;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    color: $secondary-color;
-    margin: 1.5rem 0 1rem;
-  }
-
-  p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    color: #444;
-  }
-
-  ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    
-    li {
-      margin-bottom: 0.5rem;
-      color: #555;
     }
   }
 }
